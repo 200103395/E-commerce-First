@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+		button {
+		  background-color: #04AA6D;
+		  color: white;
+		  border-color: blue;
+		  padding: 16px 20px;
+		  margin: 8px 0;
+		  cursor: pointer;
+		  width: 8%;
+		  height: 3%;
+		  opacity: 0.9;
+          text-decoration: none;
+          font-size: 16px;
+		}
+		input[type=submit]{
+		  background-color: #04AA6D;
+		  color: white;
+		  padding: 16px 20px;
+		  margin: 8px 0;
+		  border: none;
+		  cursor: pointer;
+		  width: 100%;
+		  opacity: 0.9;
+		}	
+		div[class=object]{
+		  border-color: black;
+		  background-color: gray;
+          padding: 6px 6px 6px 6px;
+          margin-bottom: 10px;
+          font-size: 16px;
+		}
+        input::-webkit-inner-spin-button,
+        input::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+        }
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+        input[id=quantity] {
+          width: 10%;
+          font-size: 22px;
+        }
+	</style>
+</head>
+<body>
+{{if .Username}}
+<a href="/user" style="margin-right: 10px">{{.Username}}</a><button><a href="/logout">Log out</a></button>
+{{else}}
+<button><a href="/register">Register</a></button>
+<button><a href="/login">Login</a></button>
+{{end}}
+<button><a href="/">Main page</a></button>
+<button><a href="/shop">Shop</a></button>
+<div style="display: grid" class="object">
+  <div style="display: inline">{{.Item.Name}}</div>
+  <div style="display: inline">{{.Item.Price}}</div>
+  <div style="display: inline">{{.Item.Review}}</div>
+  <div style="display: inline">{{.Item.Rating}}</div>
+</div>
+{{if .Username}}
+<form action="/cart/add" method="POST">
+  <input type="number" name="Quantity" min="1" placeholder="Quantity" id="quantity">
+  <input type="number" hidden name="UserID" value="{{.UserID}}">
+  <input type="text" hidden name="ItemName" value="{{.Item.Name}}">
+  <input type="number" hidden name="ItemID" value="{{.Item.ItemID}}">
+  <input type="number" hidden name="Price" value="{{.Item.Price}}">
+  <input type="submit" value="Add to cart">
+</form>
+{{else}}
+<h1>You can not purchase anything, since you are not logged in</h1>
+{{end}}
+</body>
+</html>

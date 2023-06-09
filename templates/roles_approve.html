@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+	<style>
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+		div[class=modify] {
+		  width: 100%;
+		  padding: 15px;
+		  margin: 5px 0 22px 0;
+		  display: inline-block;
+		  border: none;
+		  background: #f1f1f1;
+		}
+		button {
+		  background-color: #04AA6D;
+		  color: white;
+		  border-color: blue;
+		  padding: 16px 20px;
+		  margin: 8px 0;
+		  cursor: pointer;
+		  width: 5%;
+		  height: 3%;
+		  opacity: 0.9;
+		}
+		input[type=submit]{
+		  background-color: #04AA6D;
+		  color: white;
+		  padding: 16px 20px;
+		  margin: 8px 0;
+		  border: none;
+		  cursor: pointer;
+		  width: 10%;
+		  opacity: 0.9;
+		 }
+	</style>
+</head>
+<body>
+    <a href="/user">{{.Username}}</a>
+    <button><a href="/">Main page</a></button>
+    <button><a href="/shop">Shop page</a></button>
+	<button><a href="/logout">Log out</a></button>
+    <hr>
+    {{ range .Requests}}
+        <div style="display: grid">
+            <div class="modify" style="display: inline">User: {{.Username}}</div>
+            <div class="modify" style="display: inline">Role: {{.Role}}</div>
+            <div style="display: inline">
+                <form method="POST" action="/role_approve/confirm">
+                    <input hidden type="text" name="UserID" value="{{.UserID}}">
+                    <input hidden type="text" name="Username" value="{{.Username}}">
+                    <input hidden type="text" name="Role" value="{{.Role}}">
+                    <input type="submit" value="Approve">
+                </form>
+                <form method="POST" action="/role/decline">
+                    <input hidden type="text" name="UserID" value="{{.UserID}}">
+                    <input hidden type="text" name="Username" value="{{.Username}}">
+                    <input hidden type="text" name="Role" value="{{.Role}}">
+                    <input type="submit" value="Decline">
+                </form>
+            </div>
+        </div>
+    {{end}}
+</body>
+</html>

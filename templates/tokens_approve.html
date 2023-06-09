@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+	<style>
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+		button {
+		  background-color: #04AA6D;
+		  color: white;
+		  border-color: blue;
+		  padding: 16px 20px;
+		  margin: 8px 0;
+		  cursor: pointer;
+		  width: 7%;
+		  height: 3%;
+		  opacity: 0.9;
+		}
+		input[type=submit]{
+		  background-color: #04AA6D;
+		  color: white;
+		  padding: 16px 20px;
+		  margin: 8px 0;
+		  border: none;
+		  cursor: pointer;
+		  width: 10%;
+		  opacity: 0.9;
+		}	
+	</style>
+</head>
+<body>
+    <a href="/user" style="margin-right: 10px">{{.Username}}</a><button><a href="/logout">Log out</a></button>
+    {{ range .Requests }}
+        <div style="display: grid">
+            <div style="display: inline">
+                {{.Username}}
+            </div>
+            <div style="display: inline">
+                <div>Quantity: <div>{{.Token}}
+            </div>
+            <div style="display: inline">
+                <form method="post" action="/token_approve/confirm">
+                    <input type="hidden" value="{{.RequestID}}" name="RequestID">
+                    <input hidden type="number" name="UserID" value="{{.UserID}}">
+                    <input hidden type="text" name="Username" value="{{.Username}}">
+                    <input hidden type="number" name="Token" value="{{.Token}}">
+                    <input type="submit" value="Approve">
+                </form>
+            </div>
+            <div style="display: inline">
+                <form method="post" action="/token_approve/decline">
+                    <input type="hidden" value="{{.RequestID}}" name="RequestID">
+                    <input hidden type="number" name="UserID" value="{{.UserID}}">
+                    <input hidden type="text" name="Username" value="{{.Username}}">
+                    <input hidden type="number" name="Token" value="{{.Token}}">
+                    <input type="submit" value="Decline">
+                </form>
+            </div>
+        </div>
+    {{end}}
+</body>
+</html>

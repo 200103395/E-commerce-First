@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="./static/style.css">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+        input[type=text] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+        button {
+            background-color: #04AA6D;
+            color: white;
+            border-color: blue;
+            padding: 16px 20px;
+            margin: 8px 0;
+            cursor: pointer;
+            width: 7%;
+            height: 3%;
+            opacity: 0.9;
+        }
+        button:hover{
+            background-color: red;
+        }
+        a{
+            text-decoration: none;
+            font-size: larger;
+        }
+        a:hover{
+            background-color: red;
+        }
+        h5{
+            text-align: center;
+            padding-top: 375px;
+        }
+        h1{
+            text-align: center;
+            font-family: "Franklin Gothic Book";
+        }
+        h3{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {{if .Username}}
+        <a href="/user" style="margin-right: 10px">{{.Username}}</a><button><a href="/logout">Log out</a></button>
+    {{else}}
+        <button><a href="/register">Register</a></button>
+        <button><a href="/login">Login</a></button>
+    {{end}}
+    <h1>Welcome to our commercial site</h1>
+    <h3>This is a simple e-commerce site written in golang/html, here you can sell items as a seller, or purchase them.</h3><br>
+    <button><a href="/shop">Shop</a></button>
+    <button><a href="/publish">Publish</a></button>
+    <br>
+    <h5>Site by: Kenes Almas, Nassip Yerkanat, Kaidarov Nurtlek</h5>
+</body>
+</html>

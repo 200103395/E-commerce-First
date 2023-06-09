@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+	<style>
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+		input[id=curRole] {
+		  width: 100%;
+		  padding: 15px;
+		  margin: 5px 0 22px 0;
+		  display: inline-block;
+		  border: none;
+		  background: #f1f1f1;
+		}
+		button {
+		  background-color: #04AA6D;
+		  color: white;
+		  border-color: blue;
+		  padding: 16px 20px;
+		  margin: 8px 0;
+		  cursor: pointer;
+		  width: 5%;
+		  height: 3%;
+		  opacity: 0.9;
+		}
+		input[type=submit]{
+		  background-color: #04AA6D;
+		  color: white;
+		  padding: 16px 20px;
+		  margin: 8px 0;
+		  border: none;
+		  cursor: pointer;
+		  width: 100%;
+		  opacity: 0.9;
+		}	
+	</style>
+</head>
+<body>
+    <a href="/user">{{.Username}}</a>
+    <button><a href="/">Main page</a></button>
+    <button><a href="/shop">Shop page</a></button>
+	<button><a href="/logout">Log out</a></button>
+    <fieldset>
+        <legend>Role</legend>
+        <form method="POST" action="/change_role/confirm">
+            <input hidden type="text" name="Username" value="{{.Username}}">
+            <label for="curRole">Current role:</label>
+            <input type="text" value="{{.Role}}" id="curRole" disabled>
+            <input type="radio" value="Client" name="Role"><label>Client</label><br>
+            <input type="radio" value="Publisher" name="Role"><label>Publisher</label><br>
+            <input type="radio" value="Admin" name="Role"><label>Admin</label>
+            <input type="submit" value="Submit request">
+        </form>
+    </fieldset>
+</body>
+</html>

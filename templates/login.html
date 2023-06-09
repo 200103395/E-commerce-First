@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+	<style>
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		* {
+			box-sizing: border-box;
+		}
+		.form {
+			padding: 16px;
+			background-color: white;
+		}
+		input[type=text], input[type=password] {
+			width: 100%;
+			padding: 15px;
+			margin: 5px 0 22px 0;
+			display: inline-block;
+			border: none;
+			background: #f1f1f1;
+		}
+		input[type=submit] {
+			background-color: #04AA6D;
+			color: white;
+			padding: 16px 20px;
+			margin: 8px 0;
+			border: none;
+			cursor: pointer;
+			width: 100%;
+			opacity: 0.9;
+		}
+		.error {
+			background-color: #f1f1f1;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<h2>Log in</h2><br>
+    <form action="/login/confirm" method="POST">
+        <label for="username">Username or email:</label>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+        <input type="submit" value="Log in">
+    </form>
+    <br>
+    {{if .Error}} 
+		<div class= "container error">
+			{{.Error}} 
+		</div>
+	{{end}}
+</body>
+</html>

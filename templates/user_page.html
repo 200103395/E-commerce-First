@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+	<style>
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+		input[type=text], input[id=OldPassword], input[id=NewPassword], input[id=NewPassword2] {
+		  width: 100%;
+		  padding: 15px;
+		  margin: 5px 0 22px 0;
+		  display: inline-block;
+		  border: none;
+		  background: #f1f1f1;
+		}
+		button {
+		  background-color: #04AA6D;
+		  color: white;
+		  border-color: blue;
+		  padding: 16px 20px;
+		  margin: 8px 0;
+		  cursor: pointer;
+		  width: 7%;
+		  height: 3%;
+		  opacity: 0.9;
+		}
+		input[type=submit]{
+		  background-color: #04AA6D;
+		  color: white;
+		  padding: 16px 20px;
+		  margin: 8px 0;
+		  border: none;
+		  cursor: pointer;
+		  width: 100%;
+		  opacity: 0.9;
+		}
+	</style>
+</head>
+<body>
+    <a href="/user" style="margin-right: 10px">{{.Username}}</a>Role: {{.UserRole}}, {{.Tokens}} tokens<br><button><a href="/logout">Log out</a></button>
+    <button><a href="/">Main page</a></button>
+    <button><a href="/shop">Shop</a></button>
+
+    <button><a href="/change_password">Change password</a></button>
+    <button><a href="/change_role">Change role</a></button>
+    <button><a href="/token_new">Request tokens</a></button>
+    {{if .Role}}
+        <button><a href="/role_approve">Roles approval</a></button>
+        <button><a href="/token_approve">Tokens approval</a></button>
+    {{end}}
+</body>
+</html>

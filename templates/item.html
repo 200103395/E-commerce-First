@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+	<style>
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+		input[class=modify] {
+		  width: 100%;
+		  padding: 15px;
+		  margin: 5px 0 22px 0;
+		  display: inline-block;
+		  border: none;
+		  background: #f1f1f1;
+		}
+		button {
+		  background-color: #04AA6D;
+		  color: white;
+		  border-color: blue;
+		  padding: 16px 20px;
+		  margin: 8px 0;
+		  cursor: pointer;
+		  width: 7%;
+		  height: 3%;
+		  opacity: 0.9;
+		}
+		input[type=submit]{
+		  background-color: #04AA6D;
+		  color: white;
+		  padding: 16px 20px;
+		  margin: 8px 0;
+		  border: none;
+		  cursor: pointer;
+		  width: 10%;
+		  opacity: 0.9;
+		}	
+	</style>
+</head>
+<body>
+    {{if .Username}}
+        <a href="/user">{{.Username}}</a><button><a href="/logout">Log out</a></button>
+    {{else}}
+        <button><a href="/register">Register</a></button>
+        <button><a href="/login">Login</a></button>
+    {{end}}
+    <button><a href="/">Main page</a></button>
+    <button><a href="/shop">Shop</a></button>
+    <div style="display: grid">
+        <div style="display: inline">Name: {{.Item.Name}}</div>
+        <div style="display: inline">Price: {{.Item.Price}}</div>
+        <div style="display: inline">Description: {{.Item.Review}}</div>
+        <div style="display: inline">Rating: {{.Item.Rating}}</div>
+        <div style="display: inline">Publisher: {{.Item.Publisher}}</div>
+    </div>
+    <div>
+        {{if .Username}}
+        <form method="POST" action="/rating/confirm">
+            <input hidden name="Username" type="text" value="{{.Username}}">
+            <input hidden name="ItemID" type="number" value="{{.Item.ItemID}}">
+            <fieldset>
+                <legend>Rate</legend>
+                <div style="display: inline">
+                    <label>1</label>
+                    <input type="radio" id="1" name="Rating" value="1" {{if .Is1}} checked {{end}}>
+                </div>
+                <div style="display: inline">
+                    <label>2</label>
+                    <input type="radio" id="2" name="Rating" value="2" {{if .Is2}} checked {{end}}>
+                </div>
+                <div style="display: inline">
+                    <label>3</label>
+                    <input type="radio" id="3" name="Rating" value="3" {{if .Is3}} checked {{end}}>
+                </div>
+                <div style="display: inline">
+                    <label>4</label>
+                    <input type="radio" id="4" name="Rating" value="4" {{if .Is4}} checked {{end}}>
+                </div>
+                <div style="display: inline">
+                    <label>5</label>
+                    <input type="radio" id="5" name="Rating" value="5" {{if .Is5}} checked {{end}}>
+                </div>
+                <div style="display: inline">
+                    <input type="submit" value="Rate">
+                </div>
+            </fieldset>
+        </form>
+        {{end}}
+    </div>
+    <button style="width: 90px"><a href="/add/{{.Item.ItemID}}">Add to cart</a></button>
+    {{ range .Comments}}
+    <div style="display: grid">
+        <div style="display: inline">{{.Comment}}</div>
+        <div style="display: inline">User: {{.Username}}</div>
+        <div style="display: inline">
+            {{if .Deletable}}
+            <form method="POST" action="/comment/delete">
+                <input hidden type="text" value="{{.CommentID}}" name="CommentID">
+                <input type="submit" value="Delete" style="width: 5%;">
+            </form>
+            {{end}}
+        </div>
+    </div>
+    <hr>
+    {{end}}
+    {{if .Username}}
+        <form action="/comment/confirm" method="POST">
+            <input type="text" class="modify" id="comment" name="Comment" placeholder="Comment here...">
+            <input type="text" hidden name="Username" value="{{.Username}}">
+            <input type="number" hidden name="ItemID" value="{{.Item.ItemID}}">
+            <input type="submit" value="comment">
+        </form>
+    {{end}}
+
+    {{if .Price}}
+        <h3>Overall price: {{.Price}}</h3>
+        <button><a href="/purchase">Purchase</a></button>
+    {{end}}
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop</title>
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            display: none;
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+		input[type=text], input[id=OldPassword], input[id=NewPassword], input[id=NewPassword2] {
+		  width: 100%;
+		  padding: 15px;
+		  margin: 5px 0 22px 0;
+		  display: inline-block;
+		  border: none;
+		  background: #f1f1f1;
+		}
+		button {
+		  background-color: #04AA6D;
+		  color: white;
+		  border-color: blue;
+		  padding: 16px 10px;
+		  margin: 8px 0;
+		  cursor: pointer;
+		  width: 7%;
+		  opacity: 0.9;
+		}
+		input[type=submit]{
+		  background-color: #04AA6D;
+		  color: white;
+		  padding: 16px 20px;
+		  margin: 8px 0;
+		  border: none;
+		  cursor: pointer;
+		  width: 100%;
+		  opacity: 0.9;
+		}	
+		div[id=item]{
+		  border-color: black;
+		  background-color: gray;
+          margin-bottom: 6px;
+          padding-top: 6px;
+          padding-left: 10px;
+		}
+    </style>
+</head>
+<body>
+    {{if .Username}}
+        <a href="/user" style="margin-right: 10px">{{.Username}}</a><button><a href="/logout">Log out</a></button>
+    {{else}}
+        <button><a href="/register">Register</a></button>
+        <button><a href="/login">Login</a></button>
+    {{end}}
+    <button><a href="/">Main page</a></button>
+    <br>
+    <form action="/filter" method="POST">
+        <input type="text" placeholder="Search item" id="name" name="name" required="required">
+        <input type="hidden" name="minPrice" value="1" min="1" max="99999">
+        <input type="hidden" name="maxPrice" value="99999" min="1" max="99999">
+        <input type="hidden" name="rating" min="1" max="5" value="1">
+        <br><input type="Submit" value="Search">
+    </form>
+    <br>
+    <hr>
+    {{range .Items}}
+        <div style="display: grid" id="item">
+            <div style="display: inline">Name: {{.Name}}</div>
+            <div style="display: inline">Price: {{.Price}}</div>
+            <div style="display: inline">Description: {{.Review}}</div>
+            <div style="display: inline">Rating: {{.Rating}}</div>
+            <div style="display: inline">Publisher: {{.Publisher}}</div>
+            <button style="width: 90px"><a href="/item/{{.ItemID}}">Comments</a></button>
+            <button style="width: 90px"><a href="/add/{{.ItemID}}">Add to cart</a></button>
+        </div>
+    {{end}}
+    {{if .Price}}
+        <h3>Overall price: {{.Price}}</h3>
+        <button><a href="/purchase">Purchase</a></button>
+    {{end}}
+</body>
+</html>
